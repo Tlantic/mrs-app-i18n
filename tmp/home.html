@@ -1,0 +1,16 @@
+<button data-ng-click='addLogToConsole();'>Add log to websql</button>
+<button data-ng-click='refreshList();'>Refresh list</button>
+
+<span data-ng-bind="updated"></span>
+
+<br>
+<input type="text" data-ng-model="terms.term" />
+<button data-ng-click="translate(terms.term);">TRADUZIR</button>
+<span data-ng-bind="terms.translation"></span>
+<button data-ng-click="changeLanguage('es-es');">espanhol</button>
+<button data-ng-click="changeLanguage('fr-fr');">frances</button>
+<br>
+
+<ul>
+    <li data-ng-repeat="item in items" data-ng-bind="item.message"></li>
+</ul>
