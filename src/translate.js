@@ -168,6 +168,12 @@ angular.module('MRS.i18n').service('translate', ['$log', '$timeout', function mr
             count = 0,
             i;
         
+        function getDescendantProp(obj, desc) {
+            var arr = desc.split(".");
+            while(arr.length && (obj = obj[arr.shift()]));
+            return obj;
+        }
+        
         if (term) {
             if (!language) {
                 language = selectedLanguage;
@@ -176,8 +182,7 @@ angular.module('MRS.i18n').service('translate', ['$log', '$timeout', function mr
             if (!language) {
                 $log.error('There must be a default language defined for the application.');
             } else {
-                if (resources[language] && resources[language][term]) {
-                    translation = resources[language][term];
+                if (resources[language] && (translation = getDescendantProp(resources[language], term))) {
                     translationFound = true;
                 }
                 
@@ -189,8 +194,7 @@ angular.module('MRS.i18n').service('translate', ['$log', '$timeout', function mr
                     
                     language = defaultLanguage;
                     
-                    if (resources[language] && resources[language][term]) {
-                        translation = resources[language][term];
+                    if (resources[language] && (translation = getDescendantProp(resources[language], term))) {
                         translationFound = true;
                     }
                     
