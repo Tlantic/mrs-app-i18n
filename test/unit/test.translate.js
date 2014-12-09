@@ -237,6 +237,41 @@ describe('MRS.i18n:', function () {
             
             expect(translateService.getTerm('message', null, 1, 2)).toBe('Parametro 1 e parametro 2.');
         });
+        
+        it('should resolve cascade translation files', function() {
+             translateService.setDefaultLanguage('pt-pt');
+            
+            // defining response
+            fakeServer.requests[0].respond(200, {
+                "Content-Type": "application/json"
+            }, JSON.stringify({
+                message: {
+                    mA: "MSG 1",
+                    mB: "MSG 2"
+                }
+            }));
+            
+            expect(translateService.getTerm('message.mA')).toEqual('MSG 1');
+            expect(translateService.getTerm('message.mB')).toEqual('MSG 2');
+        });
+        
+        it('should not work when term is not found in cascade translation files', function() {
+             translateService.setDefaultLanguage('pt-pt');
+            
+            // defining response
+            fakeServer.requests[0].respond(200, {
+                "Content-Type": "application/json"
+            }, JSON.stringify({
+                message: {
+                    mA: "MSG 1",
+                    mB: "MSG 2"
+                }
+            }));
+            
+            expect(translateService.getTerm('wrongMessage')).toEqual(null);
+            expect(translateService.getTerm('message.mC')).toEqual(null);
+            expect(logService.warn).toHaveBeenCalled();
+        });
     });
     
     describe('translate filter:', function () {
