@@ -1,11 +1,11 @@
 /**
 The translate service is responsible for loading resource files with translated terms and provide terms requested by the application, based on a specific or default language.
 
-@class translate
-@namespace MRS.i18n
-@since 0.1.0
+@class i18nTranslate
+@namespace MRS.App.i18n
+@since 0.2.0
 **/
-angular.module('MRS.i18n').service('translate', ['$log', '$timeout', function mrsi18nTranslate($log, $timeout) {
+angular.module('MRS.App.i18n').service('i18nTranslate', ['$log', '$timeout', function mrsi18nTranslate($log, $timeout) {
     'use strict';
     
     var loadResources,
@@ -220,10 +220,10 @@ angular.module('MRS.i18n').service('translate', ['$log', '$timeout', function mr
     The i18n filter allows views to embed texts that must be localizable.
     
     @class i18n
-    @namespace MRS.i18n
+    @namespace MRS.App.i18n
 	@since 0.1.0
 **/
-angular.module('MRS.i18n').filter('i18n', ['translate', function mrsi18ni18n(translate) {
+angular.module('MRS.App.i18n').filter('i18n', ['i18nTranslate', function mrsi18ni18n(translate) {
     'use strict';
     
     /**

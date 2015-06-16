@@ -1,17 +1,19 @@
-/**
-The 'MRS.i18n' module provides access to terms that can vary from language to language, allowing multilanguage applications to be developed.
+/*global angular*/
 
-@module MRS.i18n
+/**
+The 'MRS.App.i18n' module provides access to terms that can vary from language to language, allowing multilanguage applications to be developed.
+
+@module MRS.App.i18n
 @beta
 **/
-angular.module('MRS.i18n', []).config(['$httpProvider', function ($httpProvider) {
+angular.module('MRS.App.i18n', []).config(['$httpProvider', function ($httpProvider) {
     'use strict';
     
     // adding $http interceptors
     $httpProvider.interceptors.push('languageInterceptor');
 }]);
 
-angular.module('MRS.i18n').run(['$mrsi18nConfig', 'translate', function mrsi18nRun(config, translate) {
+angular.module('MRS.App.i18n').run(['$mrsappi18nConfig', 'i18nTranslate', function mrsi18nRun(config, translate) {
     'use strict';
     
     // configuring translate service

@@ -5,10 +5,10 @@ describe('MRS.i18n:', function () {
         
         var translateService, logService, timeoutService, fakeServer;
         
-        beforeEach(module('MRS.i18n'));
+        beforeEach(module('MRS.App.i18n'));
         
-        beforeEach(inject(function (translate, $log, $timeout) {
-            translateService = translate;
+        beforeEach(inject(function (i18nTranslate, $log, $timeout) {
+            translateService = i18nTranslate;
             logService = $log;
             timeoutService = $timeout;
             
@@ -243,13 +243,13 @@ describe('MRS.i18n:', function () {
         
         var translateService, filter, logService, fakeServer;
         
-        beforeEach(module('MRS.i18n'));
+        beforeEach(module('MRS.App.i18n'));
         
-        beforeEach(inject(function ($filter, translate, $log) {
-            translateService = translate;
+        beforeEach(inject(function ($filter, i18nTranslate, $log) {
+            translateService = i18nTranslate;
             
             filter = $filter('i18n');
-            translateService = translate;
+            translateService = i18nTranslate;
             logService = $log;
             
             fakeServer = sinon.fakeServer.create();
