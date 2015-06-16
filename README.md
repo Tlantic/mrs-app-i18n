@@ -1,4 +1,4 @@
-tlanjs-i18n
+MRS App i18n
 ===========
 
-TlanJS i18n module
+MRS App i18n module
