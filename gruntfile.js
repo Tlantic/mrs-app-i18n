@@ -2,7 +2,7 @@
 
 /*
   Date: 09/27/2013 
-  Author: Fábio Akira Yoshida <akira@tlantic.com.br>
+  Author: Fï¿½bio Akira Yoshida <akira@tlantic.com.br>
   
     Description:    File for build based on Grunt package over NodeJS platform.
  */
@@ -70,7 +70,7 @@ module.exports = function (grunt) {
                     line: true
                 },
                 process: true,
-                banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd HH:MM:ss Z") %> */\n'
             },
             dist: {
                 src: ['src/i18n.js', 'src/*.js'],
@@ -81,7 +81,10 @@ module.exports = function (grunt) {
         // minify
         uglify: {
             options: {
-                mangle: project.obfuscate
+                mangle: project.obfuscate,
+                sourceMap: project.obfuscate,
+                sourceMapName: 'dist/' + project.mapDeployFile,
+                banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd HH:MM:ss Z") %> */'
             },
             dist: {
                 files: {
