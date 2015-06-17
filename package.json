@@ -1,10 +1,10 @@
 {
   "name": "mrs-app-i18n",
-  "version": "0.4.2",
-  "description": "i18n support for MRS.Core",
-  "main": "src/index.html",
-  "homepage": "http://www.mobileretailsuite.com/",
-  "author": "Vinícius Linck",
+  "version": "0.5.0",
+  "description": "i18n module for MRS.Core or Cordova Apps",
+  "homepage": "http://github.com/Tlantic/mrs-app-i18n",
+  "repository": "http://github.com/Tlantic/mrs-app-i18n.git",
+  "author": "Tlantic MRS Team",
   "license": "BSD",
   "devDependencies": {
     "grunt": "^0.4.5",
