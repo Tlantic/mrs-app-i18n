@@ -1,11 +1,11 @@
 /**
 The translate service is responsible for loading resource files with translated terms and provide terms requested by the application, based on a specific or default language.
 
-@class translate
-@namespace MRS.i18n
-@since 0.1.0
+@class i18nTranslate
+@namespace MRS.App.i18n
+@since 0.5.0
 **/
-angular.module('MRS.i18n').service('translate', ['$log', '$timeout', function mrsi18nTranslate($log, $timeout) {
+angular.module('MRS.App.i18n').service('i18nTranslate', ['$log', '$timeout', function mrsi18nTranslate($log, $timeout) {
     'use strict';
     
     var loadResources,
@@ -72,13 +72,12 @@ angular.module('MRS.i18n').service('translate', ['$log', '$timeout', function mr
     **/
     loadResources = function translateLoadResources(language, callback) {
         
-        var resourceFile = self.basePath + 'resources.' + language + '.json',
-            terms = {};
+        var resourceFile = self.basePath + 'resources.' + language + '.json';
         
         window.tlantic.system.readJSONFile(resourceFile, function (result) {
             resources[language] = result;
             
-            if (callback) {
+            if (callback !== undefined) {
                 $timeout(function () {
                     callback();
                 });
@@ -112,8 +111,6 @@ angular.module('MRS.i18n').service('translate', ['$log', '$timeout', function mr
         @param callback {object} Callback function to be executed once the file is successfully loaded.
     **/
     self.setLanguage = function translateSetLanguage(language, callback) {
-        var loadedLanguage;
-        
         // unload additional languages
         if (defaultLanguage !== selectedLanguage && defaultLanguage !== language && selectedLanguage !== language) {
             delete resources[selectedLanguage];
@@ -126,7 +123,7 @@ angular.module('MRS.i18n').service('translate', ['$log', '$timeout', function mr
             // load resources
             loadResources(language, callback);
         } else {
-            if (callback) {
+            if (callback !== undefined) {
                 $timeout(function () {
                     callback();
                 });
@@ -163,44 +160,44 @@ angular.module('MRS.i18n').service('translate', ['$log', '$timeout', function mr
         @param arguments {String} Values to replace tokens in the term. The term must contain tokens in the format {0}, {1} and so on.
     **/
     self.getTerm = function translateGetTerm(term, language) {
-        var translation = null,
+        var translation,
             translationFound = false,
             count = 0,
             i;
         
-        if (term) {
-            if (!language) {
+        if (term !== undefined) {
+            if (language === undefined) {
                 language = selectedLanguage;
             }
             
-            if (!language) {
+            if (language === undefined) {
                 $log.error('There must be a default language defined for the application.');
             } else {
-                if (resources[language] && resources[language][term]) {
-                    translation = resources[language][term];
+                if (resources[language] !== undefined && (translation = resources[language][term]) !== undefined) {
+                    //translation = resources[language][term];
                     translationFound = true;
                 }
                 
                 // fallback to the default language
-                if (!translationFound) {
+                if (translationFound === false) {
                     if (selectedLanguage !== language && defaultLanguage !== language) {
                         $log.warn('Translation not found for language [' + language + '] and term [' + term + '].');
                     }
                     
                     language = defaultLanguage;
                     
-                    if (resources[language] && resources[language][term]) {
-                        translation = resources[language][term];
+                    if (resources[language] !== undefined && (translation = resources[language][term]) !== undefined) {
+                        //translation = resources[language][term];
                         translationFound = true;
                     }
                     
-                    if (!translationFound) {
+                    if (translationFound === false) {
                         $log.warn('Translation not found for language [' + language + '] and term [' + term + '].');
                     }
                 }
             }
             
-            if (translation && arguments.length > 2) {
+            if (translation !== undefined && arguments.length > 2) {
                 for (i = 2; i < arguments.length; i += 1) {
                     translation = translation.replace('{' + count + '}', arguments[i]);
                     count += 1;
@@ -220,10 +217,10 @@ angular.module('MRS.i18n').service('translate', ['$log', '$timeout', function mr
     The i18n filter allows views to embed texts that must be localizable.
     
     @class i18n
-    @namespace MRS.i18n
+    @namespace MRS.App.i18n
 	@since 0.1.0
 **/
-angular.module('MRS.i18n').filter('i18n', ['translate', function mrsi18ni18n(translate) {
+angular.module('MRS.App.i18n').filter('i18n', ['i18nTranslate', function mrsi18ni18n(translate) {
     'use strict';
     
     /**

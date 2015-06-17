@@ -3,14 +3,16 @@ describe('MRS.i18n:', function () {
     
     describe('translate service:', function () {
         
-        var translateService, logService, timeoutService, fakeServer;
+        var translateService, logService, timeoutService, fakeServer, httpService, httpBackendService;
         
-        beforeEach(module('MRS.i18n'));
+        beforeEach(module('MRS.App.i18n'));
         
-        beforeEach(inject(function (translate, $log, $timeout) {
-            translateService = translate;
+        beforeEach(inject(function (i18nTranslate, $log, $timeout, $http, $httpBackend) {
+            translateService = i18nTranslate;
             logService = $log;
             timeoutService = $timeout;
+            httpService = $http;
+            httpBackendService = $httpBackend;
             
             fakeServer = sinon.fakeServer.create();
             spyOn(logService, 'warn');
@@ -19,7 +21,10 @@ describe('MRS.i18n:', function () {
         
         afterEach(function () {
             fakeServer.restore();
+            httpBackendService.verifyNoOutstandingExpectation();
+            httpBackendService.verifyNoOutstandingRequest();
         });
+        
         
         it('should get a term in the default language', function () {
             translateService.setDefaultLanguage('pt-br');
@@ -237,19 +242,35 @@ describe('MRS.i18n:', function () {
             
             expect(translateService.getTerm('message', null, 1, 2)).toBe('Parametro 1 e parametro 2.');
         });
+        
+        it('should have accept-language in requests', function () {
+            // set default language
+            translateService.setDefaultLanguage('pt-pt');
+            
+            // request something to server
+            httpService.get("/myfakepath");
+                   
+            httpBackendService.expectGET('/myfakepath', function(headers) {
+               // check if the header was sent
+               return headers["Accept-Language"] === "pt-pt";
+             }).respond(201, '');
+     
+            // flush request
+            httpBackendService.flush();
+        });
     });
     
     describe('translate filter:', function () {
         
         var translateService, filter, logService, fakeServer;
         
-        beforeEach(module('MRS.i18n'));
+        beforeEach(module('MRS.App.i18n'));
         
-        beforeEach(inject(function ($filter, translate, $log) {
-            translateService = translate;
+        beforeEach(inject(function ($filter, i18nTranslate, $log) {
+            translateService = i18nTranslate;
             
             filter = $filter('i18n');
-            translateService = translate;
+            translateService = i18nTranslate;
             logService = $log;
             
             fakeServer = sinon.fakeServer.create();

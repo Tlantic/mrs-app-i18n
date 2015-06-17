@@ -1,5 +1,6 @@
 {
-    "moduleDeployFile"      : "mrsi18n_<%= pkg.version %>.js",
-    "minifiedDeployFile"    : "mrsi18n_<%= pkg.version %>.min.js",
+    "moduleDeployFile"      : "mrs-app-i18n.js",
+    "minifiedDeployFile"    : "mrs-app-i18n.min.js",
+    "mapDeployFile"         : "mrs-app-i18n.min.js.map",
     "obfuscate"             : true
 }
