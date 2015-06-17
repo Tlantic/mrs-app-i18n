@@ -1,13 +1,14 @@
 MRS App i18n release notes
 ==============================================
 
-## latest
+## v0.5.0
 
 This release changes the module namespace from MRS to MRS.App.
 
 ### Changes
 * Added interceptor languageInterceptor
 * Added banner to minified files
+* Added bower support
 
 ### Break changes
 * Namespace from MRS.i18n to MRS.App.i18n
