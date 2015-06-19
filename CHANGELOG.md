@@ -1,6 +1,10 @@
 MRS App i18n release notes
 ==============================================
 
+## v0.5.1
+
+* Added default configuration
+
 ## v0.5.0
 
 This release changes the module namespace from MRS to MRS.App.

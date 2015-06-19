@@ -1,4 +1,4 @@
-/*! mrs-app-i18n - v0.5.0 - 2015-06-17 11:11:52 GMT */
+/*! mrs-app-i18n - v0.5.1 - 2015-06-19 14:42:44 GMT */
 /*global angular*/
 
 /**
@@ -7,9 +7,18 @@ The 'MRS.App.i18n' module provides access to terms that can vary from language t
 @module MRS.App.i18n
 @beta
 **/
-angular.module('MRS.App.i18n', []).config(['$httpProvider', function ($httpProvider) {
+angular.module('MRS.App.i18n', []).config(['$mrsappi18nConfig', '$httpProvider', function (config, $httpProvider) {
     'use strict';
     
+    var defaultConfig = {
+        resource: {
+            path: "i18n/"
+        }
+    };
+
+    // merge config with default
+    angular.extend(config, defaultConfig, config);
+
     // adding $http interceptors
     $httpProvider.interceptors.push('languageInterceptor');
 }]);
