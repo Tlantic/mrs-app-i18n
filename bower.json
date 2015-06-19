@@ -18,6 +18,8 @@
     "**/.*",
     "node_modules",
     "bower_components",
+    "config",
+    "!module.conf.json",
     "src",
     "docs",
     "scripts",
