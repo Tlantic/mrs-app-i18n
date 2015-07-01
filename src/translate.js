@@ -74,7 +74,7 @@ angular.module('MRS.App.i18n').service('i18nTranslate', ['$log', '$timeout', fun
         
         var resourceFile = self.basePath + 'resources.' + language + '.json';
         
-        window.tlantic.system.readJSONFile(resourceFile, function (result) {
+        window.tlantic.io.readJSONFile(resourceFile, function (result) {
             resources[language] = result;
             
             if (callback !== undefined) {
