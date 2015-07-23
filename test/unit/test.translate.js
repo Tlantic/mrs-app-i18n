@@ -39,6 +39,10 @@ describe('MRS.i18n:', function () {
             expect(translateService.getTerm('message')).toBe('MSG pt-br');
         });
         
+        it('should have shortcut _ for getTerm method', function() {
+            expect(translateService.getTerm).toEqual(translateService._);
+        });
+        
         it('should get a term in the selected language if found', function () {
             translateService.setDefaultLanguage('pt-br');
             
