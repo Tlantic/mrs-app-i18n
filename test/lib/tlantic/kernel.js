@@ -188,7 +188,7 @@ MRSAppKernel_IOPack.prototype.readJSONFile = function (filePath, cbSuccess, cbEr
                 try {
 					cbSuccess && cbSuccess(JSON.parse(xhr.responseText));
                 } catch (e) {
-					console.error('readJSONFile error', e);
+					console.error('readJSONFile error', filePath, e);
                     cbError(-1);
                 }
             } else {
