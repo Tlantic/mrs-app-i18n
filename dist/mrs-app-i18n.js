@@ -1,4 +1,4 @@
-/*! mrs-app-i18n - v0.5.1 - 2015-06-19 17:12:05 GMT */
+/*! mrs-app-i18n - v1.0.0 - 2015-07-23 16:27:15 GMT */
 /*global angular*/
 
 /**
@@ -131,7 +131,7 @@ angular.module('MRS.App.i18n').service('i18nTranslate', ['$log', '$timeout', fun
         
         var resourceFile = self.basePath + 'resources.' + language + '.json';
         
-        window.tlantic.system.readJSONFile(resourceFile, function (result) {
+        window.tlantic.io.readJSONFile(resourceFile, function (result) {
             resources[language] = result;
             
             if (callback !== undefined) {
@@ -267,6 +267,18 @@ angular.module('MRS.App.i18n').service('i18nTranslate', ['$log', '$timeout', fun
         
         return translation;
     };
+    
+    /**
+     * Same as getTerm.
+     * Get term from current dictionary.
+     * 
+     * @method _
+     * @param {String} term Unique key associated with the term to be searched.
+     * @param {String} language Language of the searched term (ex: pt-br, en-us).
+     * @param {String} arguments Values to replace tokens in the term. The term must contain tokens in the format {0}, {1} and so on.
+     * @return {String} the translated string
+     */
+     self._ = self.getTerm;
     
 }]);
 

@@ -1,6 +1,10 @@
 MRS App i18n release notes
 ==============================================
 
+## v1.0.0
+* Added _ method
+* Changed to version 1.0.0
+
 ## v0.5.1
 
 * Added default configuration
